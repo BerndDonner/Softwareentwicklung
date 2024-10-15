@@ -48,8 +48,8 @@ int main()
     cout << "Das ist eine Übung\0 zu Escape Sequenzen.\n";
     cout << "\nWas bist Du fuer ein Zeichen: \x5e\n";
     char x = 'a';
-    char8_t z[] = u8"\u00ef";
-    char8_t y[] = u8"ß";
+    char z[] = u8"\u00ef";
+    char y[] = u8"ß";
 
     cout << y << "\n";
     return 0;
