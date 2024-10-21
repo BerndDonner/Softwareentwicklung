@@ -39,6 +39,38 @@ int linear(int x, int m, int t)
     return y;
 }
 
+void unicodetest1()
+{
+    cout << "Unicode Test 1\n";
+
+    // griechisches pi
+    cout << "Unicode: " << "\u03C0" << '\n';
+    // smiley
+    cout << "Beyond BMP: " << "\U0001F600" << '\n';
+    // griechisches Lambda
+    cout << "UTF-8: " << "\u03BB" << '\n';
+    // Wenn u8 verwendet werden muss
+    cout << "UTF-8: " << reinterpret_cast<const char *>(
+        u8"\U0001FACE") << '\n';
+}
+
+void unicodetest2()
+{
+    char zeichen0 = 'a';
+    char zeichen1[] = u8"\u00E9";
+    char zeichen2[] = u8"\u03A9";
+    char zeichen3[] = u8"\u213E";
+    char zeichen4[] = u8"\U0001F609";
+
+    cout << "Unicode Test 2\n";
+
+    cout << "ASCII character: " << zeichen0 << endl;
+    cout << "2Byte character: " << zeichen1 << endl;
+    cout << "2Byte character: " << zeichen2 << endl;
+    cout << "3Byte character: " << zeichen3 << endl;
+    cout << "4Byte character: " << zeichen4 << endl;
+}
+
 int main()
 {
 //    funktionstest1();
@@ -52,5 +84,9 @@ int main()
     char y[] = u8"ß";
 
     cout << y << "\n";
+
+    unicodetest1();
+    unicodetest2();
+
     return 0;
 }
