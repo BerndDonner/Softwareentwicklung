@@ -76,7 +76,7 @@ int main()
 //    funktionstest1();
     cout << "Sein oder nicht sein\ndas ist hier die Frage\nDas ist ein Backslash: \\\n";
     cout << "Das sind zwei Backslashes: \\\\\n";
-    cout << "Dieter Nuhr: \"Wer keine Ahnung hat sollte einfach mal die Fresse halten.\" \n";
+    cout << "Dieter Nuhr: \"Wenn man keine Ahnung hat, einfach mal Fresse halten.\" \n";
     cout << "Das ist eine Übung\0 zu Escape Sequenzen.\n";
     cout << "\nWas bist Du fuer ein Zeichen: \x5e\n";
     char x = 'a';
