@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath> // für die exp-Funktion
+#include <string>
 
 using namespace std;
 
@@ -50,17 +51,16 @@ void unicodetest1()
     // griechisches Lambda
     cout << "UTF-8: " << "\u03BB" << '\n';
     // Wenn u8 verwendet werden muss
-    cout << "UTF-8: " << reinterpret_cast<const char *>(
-        u8"\U0001FACE") << '\n';
+    cout << "UTF-8: " << "\U0001FACE" << '\n';
 }
 
 void unicodetest2()
 {
     char zeichen0 = 'a';
-    char zeichen1[] = u8"\u00E9";
-    char zeichen2[] = u8"\u03A9";
-    char zeichen3[] = u8"\u213E";
-    char zeichen4[] = u8"\U0001F609";
+    char zeichen1[] = "\u00E9";
+    char zeichen2[] = "\u03A9";
+    char zeichen3[] = "\u213E";
+    char zeichen4[] = "\U0001F609";
 
     cout << "Unicode Test 2\n";
 
@@ -71,9 +71,26 @@ void unicodetest2()
     cout << "4Byte character: " << zeichen4 << endl;
 }
 
+void unicodetest3()
+{
+    string a = "ß";
+    string b = R"(Drei Chinesen mit dem Kontrabass
+saßen auf der Straße und erzählten sich was.
+Da kam die Polizei, fragt[2] ‚Was ist denn das?‘
+Drei Chinesen mit dem Kontrabass.)";
+    string c = "Drei Chinesen mit dem Kontrabass\nsaßen auf der Straße und erzählten sich was.\nDa kam die Polizei, fragt[2] ‚Was ist denn das?‘\nDrei Chinesen mit dem Kontrabass.";
+
+    cout << a << endl;
+    cout << b << endl;
+    cout << "\U0001f601\U0001f622" << endl;
+    cout << "L'État c'est à moi" << endl;
+    cout << "Πυθαγρας" << endl;
+}
+
 int main()
 {
 //    funktionstest1();
+/*
     cout << "Sein oder nicht sein\ndas ist hier die Frage\nDas ist ein Backslash: \\\n";
     cout << "Das sind zwei Backslashes: \\\\\n";
     cout << "Dieter Nuhr: \"Wenn man keine Ahnung hat, einfach mal Fresse halten.\" \n";
@@ -84,9 +101,11 @@ int main()
     char y[] = u8"ß";
 
     cout << y << "\n";
-
+*/
+/*
     unicodetest1();
     unicodetest2();
-
+*/
+    unicodetest3();
     return 0;
 }
