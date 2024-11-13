@@ -40,6 +40,20 @@ int linear(int x, int m, int t)
     return y;
 }
 
+void unicodetest0()
+{
+    cout << "Sein oder nicht sein\ndas ist hier die Frage\nDas ist ein Backslash: \\\n";
+    cout << "Das sind zwei Backslashes: \\\\\n";
+    cout << "Dieter Nuhr: \"Wenn man keine Ahnung hat, einfach mal Fresse halten.\" \n";
+    cout << "Das ist eine Übung\0 zu Escape Sequenzen.\n";
+    cout << "\nWas bist Du fuer ein Zeichen: \x5e\n";
+    char x = 'a';
+    char z[] = u8"\u00ef";
+    char y[] = u8"ß";
+
+    cout << y << "\n";
+}
+
 void unicodetest1()
 {
     cout << "Unicode Test 1\n";
@@ -89,23 +103,32 @@ Drei Chinesen mit dem Kontrabass.)";
 
 int main()
 {
-//    funktionstest1();
-/*
-    cout << "Sein oder nicht sein\ndas ist hier die Frage\nDas ist ein Backslash: \\\n";
-    cout << "Das sind zwei Backslashes: \\\\\n";
-    cout << "Dieter Nuhr: \"Wenn man keine Ahnung hat, einfach mal Fresse halten.\" \n";
-    cout << "Das ist eine Übung\0 zu Escape Sequenzen.\n";
-    cout << "\nWas bist Du fuer ein Zeichen: \x5e\n";
-    char x = 'a';
-    char z[] = u8"\u00ef";
-    char y[] = u8"ß";
 
-    cout << y << "\n";
-*/
 /*
+    funktionstest1();
+    unicodetest0();
     unicodetest1();
     unicodetest2();
-*/
     unicodetest3();
+*/
+    string text = "Ich bin so toll!";
+    string ins = "schön, ich bin so ";
+    string china = "Drei Chinesen mit dem Kontrabass\nsaßen auf der Straße und erzählten sich was.\nDa kam die Polizei, fragt[2] ‚Was ist denn das?‘\nDrei Chinesen mit dem Kontrabass.";
+    string zeichen = "ß";
+
+
+    cout << text << endl;
+    text.insert(11, ins);
+    cout << text << endl;
+
+    cout << sizeof(text) << endl;
+    cout << text.size() << endl;
+    cout << text[34] << endl;
+
+    size_t idx = china.find(zeichen);
+    size_t idx2 = china.find(zeichen, idx+1);
+
+    cout << china[idx2+4] << "\n";
+
     return 0;
 }
