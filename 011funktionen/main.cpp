@@ -101,6 +101,22 @@ Drei Chinesen mit dem Kontrabass.)";
     cout << "Πυθαγρας" << endl;
 }
 
+
+unsigned int count_substring(const std::string& text, const std::string& substring)
+{
+    size_t idx = text.find(substring);
+    unsigned int treffer = 0;
+
+    while(idx != string::npos)
+    {
+        treffer +=1;
+        std::cout << "gefundener Index: " << idx << endl;
+        idx = text.find(substring, idx+1);
+    }
+
+    return treffer;
+}
+
 int main()
 {
 
@@ -114,7 +130,13 @@ int main()
     string text = "Ich bin so toll!";
     string ins = "schön, ich bin so ";
     string china = "Drei Chinesen mit dem Kontrabass\nsaßen auf der Straße und erzählten sich was.\nDa kam die Polizei, fragt[2] ‚Was ist denn das?‘\nDrei Chinesen mit dem Kontrabass.";
-    string zeichen = "ß";
+    string zeichen = "D";
+
+    string vokal = "AEIOUaeiouÄÖÜäöü";
+
+
+    unsigned int treffer = count_substring(china, zeichen);
+    std::cout << "gefundener Treffer: " << treffer << endl;
 
 
     cout << text << endl;
@@ -125,10 +147,6 @@ int main()
     cout << text.size() << endl;
     cout << text[34] << endl;
 
-    size_t idx = china.find(zeichen);
-    size_t idx2 = china.find(zeichen, idx+1);
-
-    cout << china[idx2+4] << "\n";
 
     return 0;
 }
