@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath> // für die exp-Funktion
 #include <string>
+#include <cassert>
 
 using namespace std;
 
@@ -102,6 +103,21 @@ Drei Chinesen mit dem Kontrabass.)";
 }
 
 
+void string_test()
+{
+    string text = "Ich bin so toll!";
+    string ins = "schön, ich bin so ";
+
+    cout << text << endl;
+    text.insert(11, ins);
+    cout << text << endl;
+
+    cout << sizeof(text) << endl;
+    cout << text.size() << endl;
+    cout << text[34] << endl;
+}
+
+
 unsigned int count_substring(const std::string& text, const std::string& substring)
 {
     size_t idx = text.find(substring);
@@ -117,6 +133,21 @@ unsigned int count_substring(const std::string& text, const std::string& substri
     return treffer;
 }
 
+bool isVokal(const std::string& zeichen)
+{
+    string vokal = "AEIOUaeiouÄÖÜäöü";
+    size_t idx = vokal.find(zeichen);
+
+ //   return (idx != string::npos); Die kurze Variante
+
+    if (idx == string::npos)
+    {
+        return false;
+    } else {
+        return true;
+    }
+}
+
 int main()
 {
 
@@ -126,26 +157,32 @@ int main()
     unicodetest1();
     unicodetest2();
     unicodetest3();
-*/
-    string text = "Ich bin so toll!";
-    string ins = "schön, ich bin so ";
-    string china = "Drei Chinesen mit dem Kontrabass\nsaßen auf der Straße und erzählten sich was.\nDa kam die Polizei, fragt[2] ‚Was ist denn das?‘\nDrei Chinesen mit dem Kontrabass.";
+    string_test();
+
     string zeichen = "D";
-
-    string vokal = "AEIOUaeiouÄÖÜäöü";
-
-
     unsigned int treffer = count_substring(china, zeichen);
     std::cout << "gefundener Treffer: " << treffer << endl;
+*/
+    assert(isVokal("a") == true );
+    assert(isVokal("b") == false );
 
+    string china[] = {"D", "r", "e", "i", " ", "C", "h", "i", "n", "e", "s", "e", "n", " ", "m", "i", "t", " ", "d", "e", "m", " ",
+        "K", "o", "n", "t", "r", "a", "b", "a", "s", "s", "\n", "s", "a", "ß", "e", "n", " ", "a", "u", "f", " ", "d", "e", "r", " ",
+        "S", "t", "r", "a", "ß", "e", " ", "u", "n", "d", " ", "e", "r", "z", "ä", "h", "l", "t", "e", "n", " ", "s", "i", "c", "h",
+        " ", "w", "a", "s", ".", "\n", "D", "a", " ", "k", "a", "m", " ", "d", "i", "e", " ", "P", "o", "l", "i", "z", "i", ",", " ",
+        "f", "r", "a", "g", "t", "[", "2", "]", " ", "‘", "W", "a", "s", " ", "i", "s", "t", " ", "d", "e", "n", "n", " ",
+        "d", "a", "s", "?", "’", "\n", "D", "r", "e", "i", " ", "C", "h", "i", "n", "e", "s", "e", "n", " ", "m", "i", "t", " ",
+        "d", "e", "m", " ", "K", "o", "n", "t", "r", "a", "b", "a", "s", "s", "."};
+    string china_neu = "";
 
-    cout << text << endl;
-    text.insert(11, ins);
-    cout << text << endl;
+    for(size_t i=0; i < sizeof(china)/sizeof(string); i++)
+    {
+        string zeichen = china[i];
+        if (isVokal(zeichen) == false) china_neu.append(zeichen);
+        else china_neu.append("ä");
+    }
 
-    cout << sizeof(text) << endl;
-    cout << text.size() << endl;
-    cout << text[34] << endl;
+    cout << china_neu << endl;
 
 
     return 0;
