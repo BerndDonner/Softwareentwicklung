@@ -148,10 +148,48 @@ bool isVokal(const std::string& zeichen)
     }
 }
 
+string china_variation(const string& umlaut)
+{
+    assert(isVokal("a") == true );
+    assert(isVokal("b") == false );
+
+    string china[] = {"D", "r", "e", "i", " ", "C", "h", "i", "n", "e", "s", "e", "n", " ", "m", "i", "t", " ", "d", "e", "m", " ",
+                      "K", "o", "n", "t", "r", "a", "b", "a", "s", "s", "\n", "s", "a", "ß", "e", "n", " ", "a", "u", "f", " ", "d", "e", "r", " ",
+                      "S", "t", "r", "a", "ß", "e", " ", "u", "n", "d", " ", "e", "r", "z", "ä", "h", "l", "t", "e", "n", " ", "s", "i", "c", "h",
+                      " ", "w", "a", "s", ".", "\n", "D", "a", " ", "k", "a", "m", " ", "d", "i", "e", " ", "P", "o", "l", "i", "z", "i", ",", " ",
+                      "f", "r", "a", "g", "t", "[", "2", "]", " ", "‘", "W", "a", "s", " ", "i", "s", "t", " ", "d", "e", "n", "n", " ",
+                      "d", "a", "s", "?", "’", "\n", "D", "r", "e", "i", " ", "C", "h", "i", "n", "e", "s", "e", "n", " ", "m", "i", "t", " ",
+                      "d", "e", "m", " ", "K", "o", "n", "t", "r", "a", "b", "a", "s", "s", "."};
+    string china_neu = "";
+
+    for(size_t i=0; i < sizeof(china)/sizeof(string); i++)
+    {
+        string zeichen = china[i];
+        if (isVokal(zeichen) == false) china_neu.append(zeichen);
+        else china_neu.append(umlaut);
+    }
+    return china_neu;
+}
+
+struct Adresse {
+    string name;
+    string strasse_und_hausnummer;
+    int postleitzahl;
+    string stadt;
+};
+
+
+void ausgabe_adresse(Adresse person) {
+    cout << "Name:\t" << person.name << endl;
+    cout << "Straße:\t" << person.strasse_und_hausnummer << endl;
+    cout << "Ort:\t" << person.postleitzahl << " " << person.stadt << endl;
+}
+
+
 int main()
 {
 
-/*
+    /*
     funktionstest1();
     unicodetest0();
     unicodetest1();
@@ -162,27 +200,31 @@ int main()
     string zeichen = "D";
     unsigned int treffer = count_substring(china, zeichen);
     std::cout << "gefundener Treffer: " << treffer << endl;
-*/
-    assert(isVokal("a") == true );
-    assert(isVokal("b") == false );
+    cout << china_variation("ü") << endl;
+    */
 
-    string china[] = {"D", "r", "e", "i", " ", "C", "h", "i", "n", "e", "s", "e", "n", " ", "m", "i", "t", " ", "d", "e", "m", " ",
-        "K", "o", "n", "t", "r", "a", "b", "a", "s", "s", "\n", "s", "a", "ß", "e", "n", " ", "a", "u", "f", " ", "d", "e", "r", " ",
-        "S", "t", "r", "a", "ß", "e", " ", "u", "n", "d", " ", "e", "r", "z", "ä", "h", "l", "t", "e", "n", " ", "s", "i", "c", "h",
-        " ", "w", "a", "s", ".", "\n", "D", "a", " ", "k", "a", "m", " ", "d", "i", "e", " ", "P", "o", "l", "i", "z", "i", ",", " ",
-        "f", "r", "a", "g", "t", "[", "2", "]", " ", "‘", "W", "a", "s", " ", "i", "s", "t", " ", "d", "e", "n", "n", " ",
-        "d", "a", "s", "?", "’", "\n", "D", "r", "e", "i", " ", "C", "h", "i", "n", "e", "s", "e", "n", " ", "m", "i", "t", " ",
-        "d", "e", "m", " ", "K", "o", "n", "t", "r", "a", "b", "a", "s", "s", "."};
-    string china_neu = "";
 
-    for(size_t i=0; i < sizeof(china)/sizeof(string); i++)
-    {
-        string zeichen = china[i];
-        if (isVokal(zeichen) == false) china_neu.append(zeichen);
-        else china_neu.append("ä");
-    }
+    //int i;
+    Adresse thomas;
+    Adresse kevin;
 
-    cout << china_neu << endl;
+    thomas.name = "Thomas Bader";
+    thomas.strasse_und_hausnummer = "Goethestr. 12";
+    thomas.postleitzahl = 80336;
+    thomas.stadt = "München";
+
+    kevin.name = "Kevin Müller";
+    kevin.strasse_und_hausnummer = "Schwanthalerstr. 40";
+    kevin.postleitzahl = 80336;
+    kevin.stadt = "München";
+
+    ausgabe_adresse(thomas);
+    ausgabe_adresse(kevin);
+
+    int a = 5;
+    int& b = a;
+
+    cout << "a: " << a << " b: " << b << endl;
 
 
     return 0;
