@@ -178,6 +178,17 @@ struct Adresse {
     string stadt;
 };
 
+struct Vector {
+    double x;
+    double y;
+    double z;
+};
+
+double skalarprodukt(const Vector& v1, const Vector& v2)
+{
+    return v1.x*v2.x + v1.y*v2.y + v1.z*v2.z;
+}
+
 
 void ausgabe_adresse(Adresse person) {
     cout << "Name:\t" << person.name << endl;
@@ -185,11 +196,25 @@ void ausgabe_adresse(Adresse person) {
     cout << "Ort:\t" << person.postleitzahl << " " << person.stadt << endl;
 }
 
+void initialisierstest()
+{
+    int a{5};
+    int& b{a};
+    double e{2};
+    char ch = 256; //WTF das geht!!
+    //char c{256}; //Error
+    int d = 3.5;   //WTF das geht!!
+    //int f{3.5};  //Error
+
+    cout << "e: " << e << endl;
+    cout << "a: " << a << " b: " << b << endl;
+}
 
 int main()
 {
 
     /*
+    initialisierstest();
     funktionstest1();
     unicodetest0();
     unicodetest1();
@@ -201,31 +226,21 @@ int main()
     unsigned int treffer = count_substring(china, zeichen);
     std::cout << "gefundener Treffer: " << treffer << endl;
     cout << china_variation("ü") << endl;
-    */
-
+    */    
 
     //int i;
-    Adresse thomas;
-    Adresse kevin;
-
-    thomas.name = "Thomas Bader";
-    thomas.strasse_und_hausnummer = "Goethestr. 12";
-    thomas.postleitzahl = 80336;
-    thomas.stadt = "München";
-
-    kevin.name = "Kevin Müller";
-    kevin.strasse_und_hausnummer = "Schwanthalerstr. 40";
-    kevin.postleitzahl = 80336;
-    kevin.stadt = "München";
+    Adresse thomas{"Thomas Bader", "Goethestr. 12", 80336, "München"};
+    Adresse kevin{"Kevin Müller", "Schwanthalerstr. 40", 80336, "München"};
+    Adresse peter{"Peter Müller", "", 65000, "Köln"};
 
     ausgabe_adresse(thomas);
     ausgabe_adresse(kevin);
+    ausgabe_adresse(peter);
 
-    int a = 5;
-    int& b = a;
+    Vector a{1, 3, 5};
+    Vector b{2, 4, 6.1};
 
-    cout << "a: " << a << " b: " << b << endl;
-
+    cout << "Skalarprodukt: " << skalarprodukt(a, b) << endl;
 
     return 0;
 }
