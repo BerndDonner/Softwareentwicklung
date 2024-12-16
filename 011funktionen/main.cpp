@@ -182,11 +182,34 @@ struct Vector {
     double x;
     double y;
     double z;
+
+    Vector skalare_multiplikation_mem(double c);
+    void ausgabe();
 };
+
+void Vector::ausgabe()
+{
+    cout << "x: " << x << endl;
+    cout << "y: " << y << endl;
+    cout << "z: " << z << endl;
+}
+
+Vector Vector::skalare_multiplikation_mem(double c)
+{
+    Vector e{x*c, y*c, z*c};
+    return e;
+}
 
 double skalarprodukt(const Vector& v1, const Vector& v2)
 {
     return v1.x*v2.x + v1.y*v2.y + v1.z*v2.z;
+}
+
+Vector skalare_multiplikation(const Vector& a, double c)
+{
+    Vector e{a.x*c, a.y*c, a.z*c};
+    return e;
+
 }
 
 
@@ -201,9 +224,9 @@ void initialisierstest()
     int a{5};
     int& b{a};
     double e{2};
-    char ch = 256; //WTF das geht!!
+    //char ch = 256; //WTF das geht!!
     //char c{256}; //Error
-    int d = 3.5;   //WTF das geht!!
+    //int d = 3.5;   //WTF das geht!!
     //int f{3.5};  //Error
 
     cout << "e: " << e << endl;
@@ -239,8 +262,22 @@ int main()
 
     Vector a{1, 3, 5};
     Vector b{2, 4, 6.1};
+    double c{5.0};
 
     cout << "Skalarprodukt: " << skalarprodukt(a, b) << endl;
 
+    Vector e{skalare_multiplikation(a, c)};
+    cout << "x: " << e.x << endl;
+    cout << "y: " << e.y << endl;
+    cout << "z: " << e.z << endl;
+    Vector f{a.skalare_multiplikation_mem(c)};
+    cout << "x: " << f.x << endl;
+    cout << "y: " << f.y << endl;
+    cout << "z: " << f.z << endl;
+
+
+
     return 0;
 }
+
+
