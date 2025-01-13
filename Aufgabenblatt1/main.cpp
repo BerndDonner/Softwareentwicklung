@@ -42,7 +42,7 @@ std::string pdfAnhaengen(const std::string& s) {
 }
 
 /*
- Verstädnisfrage: Warum compiliert diese Funktion nicht?
+Verstädnisfrage: Warum compiliert diese Funktion nicht?
 
 std::string pdfAnhaengen(const std::string& s) {
     return s.append(".pdf");
