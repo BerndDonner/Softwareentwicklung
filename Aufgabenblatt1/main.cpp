@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cassert>
 #include <cmath>
 
 using namespace std;
@@ -36,23 +37,22 @@ void unittestRechteck(const Rechteck& r) {
 
 }
 
-std::string pdfAnhaengen(const std::string& s) {
-    std::string r{s};
-    return r.append(".pdf");
+string pdfAnhaengen(const string& s) {
+    return s + ".pdf";
 }
 
 /*
 Verstädnisfrage: Warum compiliert diese Funktion nicht?
 
-std::string pdfAnhaengen(const std::string& s) {
+string pdfAnhaengen(const string& s) {
     return s.append(".pdf");
 }
 */
 
 void unittestPdfAnhaengen()
 {
-    std::string s{"Präsentation"};
-    std::cout << "Neuer Dateiname: " << pdfAnhaengen(s) << endl;
+    string s{"Präsentation"};
+    cout << "Neuer Dateiname: " << pdfAnhaengen(s) << endl;
 }
 
 /* Viele alternativen möglich: z.B:
@@ -60,9 +60,9 @@ void unittestPdfAnhaengen()
  * - Vergleich selber durchführen
  * - ...
  */
- bool jpgAnpassen(std::string& s) {
-     const std::string e{".jpeg"};
-     const std::string n{".jpg"};
+ bool jpgAnpassen(string& s) {
+     const string e{".jpeg"};
+     const string n{".jpg"};
     size_t p = s.rfind(e);
     // TODO nach der SA:
     // Errorhandling
@@ -74,7 +74,7 @@ void unittestPdfAnhaengen()
     return true;
 }
 
- void unittestJpgAnpassen(std::string& s)
+ void unittestJpgAnpassen(string& s)
 {
     if (jpgAnpassen(s)) {
         cout << "Dateiname musste angepasst werden!" << endl;
@@ -85,21 +85,151 @@ void unittestPdfAnhaengen()
     }
 }
 
+
+string nurASCII(const string& s)
+{
+    // TODO nach der SA:
+    // über einen String läuft eigentlich man mit Iteratoren
+    string r{""};
+    for (size_t i = 0; i < s.length(); ++i)
+    {
+        if (static_cast<unsigned char>(s[i]) <= '\x7f') r += s[i];
+        // if (static_cast<unsigned char>(s[i]) <= 127) r += s[i]; // das geht auch
+    }
+    return r;
+}
+
+void unittestNurASCII(const string& s)
+{
+    cout << "Orginal String:         " << s << endl;
+    cout << "ASCII-Teil des Strings: " << nurASCII(s) << endl;
+}
+
+
+string erstelleSmiley(size_t anzahl)
+{
+    assert(anzahl <= 8);
+    string smilies;
+    // siehe https://codepoints.net
+    string smileyListe[] = {
+        "\U0001F60A",
+        "\U0001F602",
+        "\U0001F60D",
+        "\U0001F60E",
+        "\U0001F622",
+        "\U0001F621",
+        "\U0001F44D",
+        "\u2764"
+    };
+
+    for (size_t i = 0; i < anzahl; ++i)
+    {
+        smilies += smileyListe[i];
+    }
+
+    return smilies;
+}
+
+
+void unittestErstelleSmiley()
+{
+    cout << "Ein Smiley  : " << erstelleSmiley(1) << endl;
+    cout << "Acht Smileys: " << erstelleSmiley(8) << endl;
+}
+
+string ruekwaerts(const string& s)
+{
+    string r{""};
+    for (size_t i = s.length(); i > 0; --i)
+    {
+        if (static_cast<unsigned char>(s[i-1]) > 127)
+        {
+            //kein ASCII-String wir geben dann den leeren String zurück
+            cout << "ERROR: Das ist kein ASCII String!" << endl;
+            return "";
+        }
+        r += s[i-1];
+    }
+    return r;
+}
+
+void unittestRueckwaerts(const string& s)
+{
+    cout << "Orginal String:     " << s << endl;
+    cout << "Rueckwaerts String: " << ruekwaerts(s) << endl;
+}
+
+
+//Groß und Kleinschreibung wird hier berücksichtigt!
+bool istPalindrome(const string& s)
+{
+    // Auch so etwas geht: i startet von vorne im string j von hinten, wenn Sie sich überholen würden wird abgebrochen.
+    //for(Startbedingungen; Abbruchbedingung; Was machen beim nächsten Schritt)
+    for (size_t i = 0, j = s.length()-1;   i<j;   ++i, --j)
+    {
+        if (static_cast<unsigned char>(s[i]) > 127) return false; //kein ASCII-String
+        if (static_cast<unsigned char>(s[j]) > 127) return false; //kein ASCII-String
+        if (s[i] != s[j]) return false; //kein Palindome
+    }
+    return true;
+}
+
+void unittestIstPalindrome(const string s)
+{
+    if (istPalindrome(s))
+    {
+        cout << s << " ist ein ASCII-Palindrome!" << endl;
+    }
+    else
+    {
+        cout << s << " ist kein Palindrome oder enthält Zeichen, die nicht ASCII sind." << endl;
+    }
+}
+
+
 int main()
 {
+    //Aufgabe 1
     unittestPdfAnhaengen();
 
+    //Aufgabe 2
+    string s1{"Präsentation.jpeg"};
+    unittestJpgAnpassen(s1);
+    string s2{"SoEinDreck"};
+    unittestJpgAnpassen(s2);
+    string s3{"WasHast.jepgDuGeraucht"};
+    unittestJpgAnpassen(s3);
+
+    //Aufgabe 3
+    string s4{"Ich bin nur ASCII!"};
+    unittestNurASCII(s4);
+    string s5{"Öch bün nächt nür ÄßCII."};
+    unittestNurASCII(s5);
+
+    //Aufgabe 4
+    unittestErstelleSmiley();
+
+    //Aufgabe 5
+    string s6{"Softwareentwicklung"};
+    unittestRueckwaerts(s6);
+    //das darf nicht klappen, da es kein ASCII-String ist.
+    string s7{"Änderungsschneiderei"};
+    unittestRueckwaerts(s7);
+
+
+    //Aufgabe 6
+    string s8{"otto"};
+    unittestIstPalindrome(s8);
+    string s9{"ötsttstö"};
+    unittestIstPalindrome(s9);
+    string s10{"Schokoladentorte"};
+    unittestIstPalindrome(s10);
+
+    //Aufgabe 7
     Rechteck r1{1.0, 1.0/3.0};
     unittestRechteck(r1);
     Rechteck r2{0.3, 0.1 + 0.2};
     unittestRechteck(r2);
-
-    std::string s1{"Präsentation.jpeg"};
-    unittestJpgAnpassen(s1);
-    std::string s2{"SoEinDreck"};
-    unittestJpgAnpassen(s2);
-    std::string s3{"WasHast.jepgDuGeraucht"};
-    unittestJpgAnpassen(s3);
 
     return 0;
 }
