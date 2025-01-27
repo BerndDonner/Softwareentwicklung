@@ -233,6 +233,58 @@ void initialisierstest()
     cout << "a: " << a << " b: " << b << endl;
 }
 
+void unittest_adresse()
+{
+    Adresse thomas{"Thomas Bader", "Goethestr. 12", 80336, "München"};
+    Adresse kevin{"Kevin Müller", "Schwanthalerstr. 40", 80336, "München"};
+    Adresse peter{"Peter Müller", "", 65000, "Köln"};
+
+    ausgabe_adresse(thomas);
+    ausgabe_adresse(kevin);
+    ausgabe_adresse(peter);
+}
+
+void unittest_vector()
+{
+    Vector a{1, 3, 5};
+    Vector b{2, 4, 6.1};
+    double c{5.0};
+
+    cout << "Skalarprodukt: " << skalarprodukt(a, b) << endl;
+
+    Vector e{skalare_multiplikation(a, c)};
+    cout << "x: " << e.x << endl;
+    cout << "y: " << e.y << endl;
+    cout << "z: " << e.z << endl;
+    Vector f{a.skalare_multiplikation_mem(c)};
+    cout << "x: " << f.x << endl;
+    cout << "y: " << f.y << endl;
+    cout << "z: " << f.z << endl;
+}
+
+
+
+
+struct Rechteck {
+    int breite;
+    int hoehe;
+
+    Rechteck(int b, int h) {
+        breite = b;
+        hoehe = h;
+        cout << "Rechteck erstellt mit Breite: " << breite <<
+            " und Höhe: " << hoehe << endl;
+    }
+
+    ~Rechteck() {
+        cout << "Rechteck mit Breite: " << breite << " und Höhe: " <<
+            hoehe << " wird gelöscht" << endl;
+    }
+};
+
+
+
+
 int main()
 {
 
@@ -249,31 +301,12 @@ int main()
     unsigned int treffer = count_substring(china, zeichen);
     std::cout << "gefundener Treffer: " << treffer << endl;
     cout << china_variation("ü") << endl;
-    */    
+    */
 
-    //int i;
-    Adresse thomas{"Thomas Bader", "Goethestr. 12", 80336, "München"};
-    Adresse kevin{"Kevin Müller", "Schwanthalerstr. 40", 80336, "München"};
-    Adresse peter{"Peter Müller", "", 65000, "Köln"};
+    //unittest_adresse();
+    //unittest_vector();
 
-    ausgabe_adresse(thomas);
-    ausgabe_adresse(kevin);
-    ausgabe_adresse(peter);
-
-    Vector a{1, 3, 5};
-    Vector b{2, 4, 6.1};
-    double c{5.0};
-
-    cout << "Skalarprodukt: " << skalarprodukt(a, b) << endl;
-
-    Vector e{skalare_multiplikation(a, c)};
-    cout << "x: " << e.x << endl;
-    cout << "y: " << e.y << endl;
-    cout << "z: " << e.z << endl;
-    Vector f{a.skalare_multiplikation_mem(c)};
-    cout << "x: " << f.x << endl;
-    cout << "y: " << f.y << endl;
-    cout << "z: " << f.z << endl;
+    Rechteck r{10, 20};
 
 
 
