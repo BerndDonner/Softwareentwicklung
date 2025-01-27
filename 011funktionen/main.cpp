@@ -266,8 +266,11 @@ void unittest_vector()
 
 
 struct Rechteck {
+private:
+
     int breite;
     int hoehe;
+public:
 
     Rechteck(int b, int h) {
         breite = b;
@@ -306,7 +309,11 @@ int main()
     //unittest_adresse();
     //unittest_vector();
 
-    Rechteck r{10, 20};
+    {
+        Rechteck r{10, 20};
+        cout << "a\n";
+    }
+    cout << "b\n";
 
 
 
