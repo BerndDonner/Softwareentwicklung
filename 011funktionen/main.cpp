@@ -265,7 +265,7 @@ void unittest_vector()
 
 
 
-struct Rechteck {
+class Rechteck {
 private:
 
     int breite;
@@ -285,6 +285,58 @@ public:
     }
 };
 
+class Kreis {
+private:
+    double durchmesser;
+
+public:
+    Kreis(double radius) : durchmesser{2*radius} {
+        assert(radius >= 0.0);
+    }
+
+    Kreis() : durchmesser{2*1.0} {
+    }
+
+    ~Kreis() {
+        cout << "Kreis wird zerstört" << endl;
+    }
+
+    double getDurchmesser() const {
+        return durchmesser;
+    }
+
+    double flaeche() const {
+        return numbers::pi/4 * durchmesser * durchmesser;
+    }
+};
+
+
+
+/*
+ * Alternative Implementierung:
+
+class Kreis {
+private:
+    double radius;
+
+public:
+    Kreis(double r) : radius{r} {
+        assert(r >= 0.0);
+    }
+
+    ~Kreis() {
+        cout << "Kreis wird zerstört" << endl;
+    }
+
+    double getDurchmesser() const {
+        return 2*radius;
+    }
+
+    double flaeche() const {
+        return numbers::pi * radius * radius;
+    }
+};
+*/
 
 
 
@@ -309,13 +361,11 @@ int main()
     //unittest_adresse();
     //unittest_vector();
 
-    {
-        Rechteck r{10, 20};
-        cout << "a\n";
-    }
-    cout << "b\n";
+    Kreis k{2.0};
 
+    cout << "Fläche des Kreises: " << k.flaeche() << endl;
 
+    Rechteck r{10, 20};
 
     return 0;
 }
