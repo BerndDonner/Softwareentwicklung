@@ -339,6 +339,20 @@ public:
 */
 
 
+class Basis {
+protected:
+    void methode() { cout << "Basis­Klasse\n"; }
+};
+
+// Kindklasse    : Elternklasse
+class Abgeleitet : public Basis {
+public:
+        void eigeneMethode() {
+            methode();
+            cout << "Abgeleitete Klasse\n";
+        }
+};
+
 
 int main()
 {
@@ -360,6 +374,13 @@ int main()
 
     //unittest_adresse();
     //unittest_vector();
+
+    Basis b;
+    Abgeleitet a;
+
+//    b.methode();
+    a.eigeneMethode();
+//    a.methode();
 
     Kreis k{2.0};
 
