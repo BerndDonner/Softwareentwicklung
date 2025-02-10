@@ -25,18 +25,34 @@
     };
   } // {
     buildDevShell = system: let
-      pkgs = import nixpkgs { inherit system; };
+      pkgs = import nixpkgs {
+        inherit system;
+        config = {
+          qt.enable = true; # Enable Qt configuration globally
+        };
+      };
     in
       pkgs.mkShell {
-        packages = with pkgs; [
-          gcc14Stdenv
+
+        nativeBuildInputs = with pkgs; [
           cmake
+          pkg-config
+          qt6.qttools
+          qt6.wrapQtAppsHook
+          qt6.qtwayland
           gdb
-          # coreutils
-          # gnumake
-          # ninja
+          makeWrapper
+          bashInteractive
         ];
-        buildInputs = with pkgs; [];
+
+        QT_PLUGIN_PATH = "${pkgs.qt6.qtgraphs}/lib";
+
+        # # set the environment variables that Qt apps expect
+        shellHook = ''
+          bashdir=$(mktemp -d)
+          makeWrapper "$(type -p bash)" "$bashdir/bash" "''${qtWrapperArgs[@]}"
+          exec "$bashdir/bash"
+        '';
       };
   };
 }
