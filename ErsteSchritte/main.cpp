@@ -1,3 +1,4 @@
+/* Dieser kommentar ist super wichtig */
 #include "mainwindow.h"
 
 #include <QApplication>
